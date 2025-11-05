@@ -1,7 +1,16 @@
 package net.meryem.metier;
 import net.meryem.dao.IDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MetierImpl implements IMetier {
+    @Autowired //Ici c'est comme on dit a Spring: "Quand tu cree un obj de MetierImpl, affecte a la var 'dao' un obj de type IDao"
+    //Mais @Autowired est déconseillé, car Spring prefere l'injection via constructeur plusque via le setter ou via la propriete.
+    @Qualifier("dao3") //donc a chaque fois on veut changer la version il faut juste changer le contenu entre prentheses
     private IDao dao;  //couplage faible
+
     @Override
     public double calcul() {
         double t = dao.getData();
